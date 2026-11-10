@@ -1,6 +1,6 @@
 /* UtilOps – service worker: chỉ lưu vỏ app (icon, trang khởi động) để mở được khi mất mạng.
    Dữ liệu luôn nằm trên máy chủ Google Drive, không lưu ở đây. */
-const CACHE = 'utilops-shell-v1';
+const CACHE = 'utilops-shell-v2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './favicon-48.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

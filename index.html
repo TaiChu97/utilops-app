@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="UtilOps">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 :root{--bg:#0e4a50;--bg2:#0b3a3f;--ink:#ffffff;--mute:#b9d6d8;--acc:#5cd6e0;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.16);
  --f:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
@@ -39,6 +39,8 @@ h1{font-size:22px;margin:4px 0 0;font-weight:700;letter-spacing:-.01em}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}}
 .small{font-size:12px;color:var(--mute)}
 [hidden]{display:none!important}
+#appWrap{position:fixed;inset:0;background:#fff;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);z-index:5}
+#appFrame{border:0;width:100%;height:100%;display:block;background:#fff}
 </style>
 </head>
 <body>
@@ -53,7 +55,7 @@ h1{font-size:22px;margin:4px 0 0;font-weight:700;letter-spacing:-.01em}
   <section id="vLaunch" hidden style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%">
     <div class="spin" aria-hidden="true"></div>
     <p class="sub" id="launchMsg">Đang kết nối máy chủ…</p>
-    <a class="btn pri" id="btnGo2" href="#">Mở phần mềm</a>
+    <a class="btn pri" id="btnGo2" href="#" hidden>Mở phần mềm</a>
   </section>
 
   <!-- Mất mạng -->
@@ -72,6 +74,7 @@ h1{font-size:22px;margin:4px 0 0;font-weight:700;letter-spacing:-.01em}
     <p class="small" style="margin:0">App chỉ là lối vào. Tài khoản, dữ liệu, lịch sử nằm trên máy chủ của Tổ trưởng – cập nhật phần mềm không cần cài lại.</p>
   </section>
 </main>
+<div id="appWrap" hidden><iframe id="appFrame" title="UtilOps GMP" allow="clipboard-write; fullscreen; camera"></iframe></div>
 <script>
 // Đường link duy nhất của phần mềm (máy chủ Google Apps Script). Đổi tại đây nếu triển khai mới.
 var SERVER = 'https://script.google.com/macros/s/AKfycbyhXcvwH1dw-ZScNjJM4t5989uoCrk2-IdbljmkybYoCgXJuCQccAogU9Pla7Mq-ONh/exec';
@@ -89,9 +92,14 @@ function show(id) { ['vLaunch', 'vOffline', 'vInstall'].forEach(function (v) { $
 function launch() {
   if (!navigator.onLine) { show('vOffline'); return; }
   show('vLaunch');
-  setTimeout(function () { location.replace(SERVER); }, 350);
-  setTimeout(function () { $('launchMsg').textContent = 'Nếu phần mềm chưa mở, bấm nút bên dưới.'; }, 6000);
+  // mở phần mềm trong khung toàn màn hình của app (không có thanh địa chỉ / thanh thông báo Google)
+  var f = $('appFrame');
+  f.onload = function () { $('appWrap').hidden = false; };
+  f.src = SERVER;
+  setTimeout(function () { $('appWrap').hidden = false; }, 8000);
 }
+// "Mở phần mềm ngay": mở ngay trong khung, không cần cài
+['btnGo', 'btnGo2'].forEach(function (id) { $(id).addEventListener('click', function (e) { e.preventDefault(); launch(); }); });
 $('btnRetry').onclick = launch;
 window.addEventListener('online', function () { if (!$('vOffline').hidden) launch(); });
 
