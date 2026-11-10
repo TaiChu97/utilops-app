@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "UtilOps GMP – Tổ Phụ trợ 2",
+  "short_name": "UtilOps",
+  "description": "Vận hành, bảo trì & giám sát hệ thống phụ trợ (HVAC, Chiller, BMS/EMS, RO/PW/WFI) – Phenikaa Pharma",
+  "lang": "vi",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0e4a50",
+  "theme_color": "#0e4a50",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
