@@ -14,104 +14,95 @@
 <meta name="apple-mobile-web-app-title" content="UtilOps">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
-:root{--bg:#0e4a50;--bg2:#0b3a3f;--ink:#ffffff;--mute:#b9d6d8;--acc:#5cd6e0;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.16);
- --f:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
-*{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{background:radial-gradient(120% 80% at 50% 0%,var(--bg) 0%,var(--bg2) 100%);color:var(--ink);font-family:var(--f);font-size:15px;line-height:1.5;
- padding:env(safe-area-inset-top,0) max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0) max(16px,env(safe-area-inset-left,0px));
- display:flex;align-items:center;justify-content:center}
-.box{width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:28px 0}
-.logo{width:96px;height:96px;border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-h1{font-size:22px;margin:4px 0 0;font-weight:700;letter-spacing:-.01em}
-.sub{color:var(--mute);font-size:13.5px;margin:0}
-.btn{appearance:none;border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;width:100%;text-decoration:none;display:block}
-.pri{background:var(--acc);color:#05292c}
-.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:left;width:100%}
-.card h2{font-size:14px;margin:0 0 6px}
-.card ol{margin:0;padding-left:20px;color:var(--mute);font-size:13.5px}
-.card li{margin:3px 0}
-.card b{color:var(--ink)}
-.spin{width:28px;height:28px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--acc);animation:r 0.9s linear infinite}
+body{background:#0e4a50;color:#fff;font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center;
+ padding:env(safe-area-inset-top,0) max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0) max(16px,env(safe-area-inset-left,0px))}
+.box{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;max-width:420px}
+.logo{width:88px;height:88px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.spin{width:26px;height:26px;border-radius:50%;border:3px solid rgba(255,255,255,.2);border-top-color:#5cd6e0;animation:r .9s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}}
-.small{font-size:12px;color:var(--mute)}
+.m{color:#b9d6d8;font-size:13.5px;margin:0}
+a,button{color:#05292c;background:#5cd6e0;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
 [hidden]{display:none!important}
-#appWrap{position:fixed;inset:0;background:#fff;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);z-index:5}
-#appFrame{border:0;width:100%;height:100%;display:block;background:#fff}
 </style>
 </head>
 <body>
 <main class="box">
   <img class="logo" src="icon-192.png" alt="UtilOps">
-  <div>
-    <h1>UtilOps GMP</h1>
-    <p class="sub">Tổ Hệ thống Phụ trợ 2 · Phenikaa Pharma</p>
-  </div>
-
-  <!-- Đang mở (app đã cài) -->
-  <section id="vLaunch" hidden style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%">
-    <div class="spin" aria-hidden="true"></div>
-    <p class="sub" id="launchMsg">Đang kết nối máy chủ…</p>
-    <a class="btn pri" id="btnGo2" href="#" hidden>Mở phần mềm</a>
-  </section>
-
-  <!-- Mất mạng -->
-  <section id="vOffline" hidden style="display:flex;flex-direction:column;gap:12px;width:100%">
-    <div class="card"><h2>Không có kết nối mạng</h2><p class="small" style="margin:0">Dữ liệu UtilOps nằm trên máy chủ Google Drive nên cần Internet. Bật Wi-Fi hoặc 4G rồi thử lại.</p></div>
-    <button class="btn pri" id="btnRetry">Thử lại</button>
-  </section>
-
-  <!-- Mở trong trình duyệt: hướng dẫn cài -->
-  <section id="vInstall" hidden style="display:flex;flex-direction:column;gap:12px;width:100%">
-    <button class="btn pri" id="btnInstall" hidden>⬇ Cài đặt app UtilOps</button>
-    <div class="card" id="gIOS" hidden><h2>Cài trên iPhone / iPad (Safari)</h2><ol><li>Bấm nút <b>Chia sẻ</b> (ô vuông có mũi tên lên) ở thanh dưới.</li><li>Chọn <b>Thêm vào MH chính</b> (Add to Home Screen).</li><li>Bấm <b>Thêm</b>. Biểu tượng UtilOps xuất hiện trên màn hình.</li></ol></div>
-    <div class="card" id="gAndroid" hidden><h2>Cài trên Android (Chrome)</h2><ol><li>Bấm nút <b>Cài đặt app</b> ở trên, hoặc menu <b>⋮</b> → <b>Cài đặt ứng dụng</b> / <b>Thêm vào màn hình chính</b>.</li><li>Bấm <b>Cài đặt</b>. Mở UtilOps từ màn hình chính.</li></ol></div>
-    <div class="card" id="gPC" hidden><h2>Cài trên máy tính (Chrome / Edge)</h2><ol><li>Bấm nút <b>Cài đặt app</b> ở trên, hoặc biểu tượng <b>⊕ Cài đặt</b> ở cuối thanh địa chỉ.</li><li>UtilOps mở trong cửa sổ riêng và có biểu tượng trên Desktop / Start menu / Dock.</li></ol></div>
-    <a class="btn sec" id="btnGo" href="#">Mở phần mềm ngay (không cài)</a>
-    <p class="small" style="margin:0">App chỉ là lối vào. Tài khoản, dữ liệu, lịch sử nằm trên máy chủ của Tổ trưởng – cập nhật phần mềm không cần cài lại.</p>
-  </section>
+  <div><b style="font-size:20px">UtilOps GMP</b><p class="m">Tổ Hệ thống Phụ trợ 2 · Phenikaa Pharma</p></div>
+  <div class="spin" id="sp" aria-hidden="true"></div>
+  <p class="m" id="msg">Đang tải phần mềm…</p>
+  <button id="retry" hidden>Thử lại</button>
+  <a id="old" hidden target="_top">Mở bằng đường dẫn dự phòng</a>
 </main>
-<div id="appWrap" hidden><iframe id="appFrame" title="UtilOps GMP" allow="clipboard-write; fullscreen; camera"></iframe></div>
 <script>
-// Đường link duy nhất của phần mềm (máy chủ Google Apps Script). Đổi tại đây nếu triển khai mới.
-var SERVER = 'https://script.google.com/macros/s/AKfycbyhXcvwH1dw-ZScNjJM4t5989uoCrk2-IdbljmkybYoCgXJuCQccAogU9Pla7Mq-ONh/exec';
+(function () {
+  /* Máy chủ UtilOps (Google Apps Script – dữ liệu trên Google Drive). App chạy trực tiếp, gọi máy chủ qua API JSON. */
+  var API = 'https://script.google.com/macros/s/AKfycbyhXcvwH1dw-ZScNjJM4t5989uoCrk2-IdbljmkybYoCgXJuCQccAogU9Pla7Mq-ONh/exec';
+  var K = 'uo_app', KV = 'uo_app_v';
+  var $ = function (i) { return document.getElementById(i); };
+  $('old').href = API;
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
 
-var $ = function (s) { return document.getElementById(s); };
-var ua = navigator.userAgent || '';
-var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-var isAndroid = /Android/i.test(ua);
-var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true || /source=app/.test(location.search);
-['btnGo', 'btnGo2'].forEach(function (id) { $(id).href = SERVER; });
+  function call(fn, args) {
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: fn, args: args || [] }), cache: 'no-store' })
+      .then(function (r) { return r.json(); }).then(function (j) { if (j.ok) return j.r; throw new Error(j.err); });
+  }
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function put(v, h) { try { localStorage.setItem(K, h); localStorage.setItem(KV, v); } catch (e) {} }
 
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+  /* Phần chèn vào trang phần mềm: địa chỉ API, manifest/biểu tượng (để cài app), tự kiểm tra bản mới, nút cài app */
+  var S = 'script';
+  var INJ =
+    '<' + S + '>window.UTILOPS_API=' + JSON.stringify(API) + ';</' + S + '>' +
+    '<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="favicon-48.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">' +
+    '<meta name="theme-color" content="#0e4a50"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="UtilOps">' +
+    '<' + S + '>(' + function (API, K, KV) {
+      function call(fn) { return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: fn, args: [] }), cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { if (j.ok) return j.r; throw new Error(j.err); }); }
+      function toast(html) { var d = document.createElement('div'); d.style.cssText = 'position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:9999;background:#0e4a50;color:#fff;padding:10px 12px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:13.5px Segoe UI,Arial,sans-serif;display:flex;gap:10px;align-items:center'; d.innerHTML = html; document.body.appendChild(d); return d; }
+      /* bản giao diện mới: tải ngầm, áp dụng khi mở lại hoặc bấm Tải lại */
+      setTimeout(function () {
+        var v = null; try { v = localStorage.getItem(KV); } catch (e) {}
+        call('appInfo').then(function (i) {
+          if (!i.v || i.v === v) return;
+          return call('appHtml').then(function (a) {
+            try { localStorage.setItem(K, a.html); localStorage.setItem(KV, a.v); } catch (e) {}
+            var t = toast('Đã có phiên bản UtilOps mới. <button style="background:#5cd6e0;color:#05292c;border:0;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer">Tải lại</button>');
+            t.querySelector('button').onclick = function () { location.reload(); };
+          });
+        }).catch(function () {});
+      }, 5000);
+      /* nút cài app (Chrome/Edge máy tính & Android) */
+      var dp = null;
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault(); dp = e;
+        if (matchMedia('(display-mode: standalone)').matches) return;
+        var t = toast('<span>Cài UtilOps lên máy này?</span><button style="background:#5cd6e0;color:#05292c;border:0;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer">Cài app</button><span style="cursor:pointer;opacity:.7;padding:0 4px" title="Đóng">✕</span>');
+        t.querySelector('button').onclick = function () { dp.prompt(); dp.userChoice.then(function () { t.remove(); }); };
+        t.querySelectorAll('span')[1].onclick = function () { t.remove(); };
+      });
+    }.toString() + ')(' + JSON.stringify(API) + ',' + JSON.stringify(K) + ',' + JSON.stringify(KV) + ');</' + S + '>';
 
-function show(id) { ['vLaunch', 'vOffline', 'vInstall'].forEach(function (v) { $(v).hidden = v !== id; }); }
-function launch() {
-  if (!navigator.onLine) { show('vOffline'); return; }
-  show('vLaunch');
-  // mở phần mềm trong khung toàn màn hình của app (không có thanh địa chỉ / thanh thông báo Google)
-  var f = $('appFrame');
-  f.onload = function () { $('appWrap').hidden = false; };
-  f.src = SERVER;
-  setTimeout(function () { $('appWrap').hidden = false; }, 8000);
-}
-// "Mở phần mềm ngay": mở ngay trong khung, không cần cài
-['btnGo', 'btnGo2'].forEach(function (id) { $(id).addEventListener('click', function (e) { e.preventDefault(); launch(); }); });
-$('btnRetry').onclick = launch;
-window.addEventListener('online', function () { if (!$('vOffline').hidden) launch(); });
+  function boot(h) {
+    h = h.replace(/<head>/i, '<head>' + INJ);
+    document.open(); document.write(h); document.close();
+  }
+  function fail(e) {
+    $('sp').hidden = true;
+    $('msg').textContent = (navigator.onLine === false ? 'Không có kết nối mạng. ' : 'Không tải được phần mềm. ') + 'Kiểm tra Wi-Fi/4G rồi thử lại.';
+    $('retry').hidden = false; $('old').hidden = false;
+  }
+  function first() {
+    $('sp').hidden = false; $('retry').hidden = true; $('msg').textContent = 'Đang tải phần mềm lần đầu (khoảng vài giây)…';
+    call('appHtml').then(function (a) { put(a.v, a.html); boot(a.html); }).catch(fail);
+  }
+  $('retry').onclick = first;
 
-if (standalone) launch();
-else {
-  show('vInstall');
-  $(isIOS ? 'gIOS' : isAndroid ? 'gAndroid' : 'gPC').hidden = false;
-  var deferred = null;
-  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; $('btnInstall').hidden = false; });
-  $('btnInstall').onclick = function () { if (!deferred) return; deferred.prompt(); deferred.userChoice.then(function () { deferred = null; $('btnInstall').hidden = true; }); };
-  window.addEventListener('appinstalled', function () { $('btnInstall').hidden = true; });
-}
+  var cached = get(K);
+  if (cached) setTimeout(function () { boot(cached); }, 0);   /* mở ngay từ bản đã lưu trên máy (sau khi trang khởi động phân tích xong để thay toàn bộ tài liệu) – kiểm tra bản mới chạy ngầm */
+  else first();
+})();
 </script>
 </body>
 </html>
