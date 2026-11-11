@@ -5,31 +5,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>UtilOps GMP</title>
 <meta name="description" content="App vận hành hệ thống phụ trợ – Tổ Phụ trợ 2, Phenikaa Pharma">
-<meta name="theme-color" content="#0e4a50">
+<meta name="theme-color" content="#1d3566">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="favicon-48.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon-48.png?v=5">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="UtilOps">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 html,body{height:100%;margin:0}
-body{background:#0e4a50;color:#fff;font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center;
+body{background:#1d3566;color:#fff;font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center;
  padding:env(safe-area-inset-top,0) max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0) max(16px,env(safe-area-inset-left,0px))}
 .box{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;max-width:420px}
 .logo{width:88px;height:88px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.spin{width:26px;height:26px;border-radius:50%;border:3px solid rgba(255,255,255,.2);border-top-color:#5cd6e0;animation:r .9s linear infinite}
+.spin{width:26px;height:26px;border-radius:50%;border:3px solid rgba(255,255,255,.2);border-top-color:#f26522;animation:r .9s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}}
 .m{color:#b9d6d8;font-size:13.5px;margin:0}
-a,button{color:#05292c;background:#5cd6e0;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+a,button{color:#fff;background:#f26522;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
 <main class="box">
-  <img class="logo" src="icon-192.png" alt="UtilOps">
+  <img class="logo" src="icon-192.png?v=5" alt="UtilOps">
   <div><b style="font-size:20px">UtilOps GMP</b><p class="m">Tổ Hệ thống Phụ trợ 2 · Phenikaa Pharma</p></div>
   <div class="spin" id="sp" aria-hidden="true"></div>
   <p class="m" id="msg">Đang tải phần mềm…</p>
@@ -56,11 +56,11 @@ a,button{color:#05292c;background:#5cd6e0;border:0;border-radius:10px;padding:11
   var S = 'script';
   var INJ =
     '<' + S + '>window.UTILOPS_API=' + JSON.stringify(API) + ';</' + S + '>' +
-    '<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="favicon-48.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">' +
-    '<meta name="theme-color" content="#0e4a50"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="UtilOps">' +
+    '<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="favicon-48.png?v=5"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=5">' +
+    '<meta name="theme-color" content="#1d3566"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="UtilOps">' +
     '<' + S + '>(' + function (API, K, KV) {
       function call(fn) { return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: fn, args: [] }), cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { if (j.ok) return j.r; throw new Error(j.err); }); }
-      function toast(html) { var d = document.createElement('div'); d.style.cssText = 'position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:9999;background:#0e4a50;color:#fff;padding:10px 12px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:13.5px Segoe UI,Arial,sans-serif;display:flex;gap:10px;align-items:center'; d.innerHTML = html; document.body.appendChild(d); return d; }
+      function toast(html) { var d = document.createElement('div'); d.style.cssText = 'position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:9999;background:#1d3566;color:#fff;padding:10px 12px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:13.5px Segoe UI,Arial,sans-serif;display:flex;gap:10px;align-items:center'; d.innerHTML = html; document.body.appendChild(d); return d; }
       /* bản giao diện mới: tải ngầm, áp dụng khi mở lại hoặc bấm Tải lại */
       setTimeout(function () {
         var v = null; try { v = localStorage.getItem(KV); } catch (e) {}
@@ -68,7 +68,7 @@ a,button{color:#05292c;background:#5cd6e0;border:0;border-radius:10px;padding:11
           if (!i.v || i.v === v) return;
           return call('appHtml').then(function (a) {
             try { localStorage.setItem(K, a.html); localStorage.setItem(KV, a.v); } catch (e) {}
-            var t = toast('Đã có phiên bản UtilOps mới. <button style="background:#5cd6e0;color:#05292c;border:0;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer">Tải lại</button>');
+            var t = toast('Đã có phiên bản UtilOps mới. <button style="background:#f26522;color:#fff;border:0;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer">Tải lại</button>');
             t.querySelector('button').onclick = function () { location.reload(); };
           });
         }).catch(function () {});
@@ -78,7 +78,7 @@ a,button{color:#05292c;background:#5cd6e0;border:0;border-radius:10px;padding:11
       window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault(); dp = e;
         if (matchMedia('(display-mode: standalone)').matches) return;
-        var t = toast('<span>Cài UtilOps lên máy này?</span><button style="background:#5cd6e0;color:#05292c;border:0;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer">Cài app</button><span style="cursor:pointer;opacity:.7;padding:0 4px" title="Đóng">✕</span>');
+        var t = toast('<span>Cài UtilOps lên máy này?</span><button style="background:#f26522;color:#fff;border:0;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer">Cài app</button><span style="cursor:pointer;opacity:.7;padding:0 4px" title="Đóng">✕</span>');
         t.querySelector('button').onclick = function () { dp.prompt(); dp.userChoice.then(function () { t.remove(); }); };
         t.querySelectorAll('span')[1].onclick = function () { t.remove(); };
       });
